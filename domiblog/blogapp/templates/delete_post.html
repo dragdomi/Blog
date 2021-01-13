@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Delete Post{% endblock %}
+{% block content %}
+
+
+{% if user.is_authenticated %}
+    {% if user.id == 1 %}
+        <h1>Delete Post</h1>
+        <br>
+        <h3>Delete: {{ post.title }}</h3>
+
+        <div class="form-group">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <br>
+                <button class="btn btn-danger">Delete Post</button>
+            </form>
+        </div>
+    {% else %}
+        You have no permission to enter this page.
+    % endif %}
+{% else %}
+    You have no permission to enter this page.
+{% endif %}
+
+{% endblock %}

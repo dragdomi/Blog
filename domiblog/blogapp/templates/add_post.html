@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Add post{% endblock %}
+{% block content %}
+
+
+{% if user.is_authenticated %}
+    {% if user.id == 1 %}
+    <h1>Add a post</h1>
+
+    <div class="form-group">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-secondary">Create</button>
+        </form>
+    </div>
+
+    <script>
+        var name = "{{ user.id }}";
+        document.getElementById('post_author').value = name;
+    </script>
+    {% else %}
+        You have no permission to enter this page.
+    {% endif %}
+{% else %}
+    You have no permission to enter this page.
+{% endif %}
+    
+{% endblock %}
