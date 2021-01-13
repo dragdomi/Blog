@@ -16,11 +16,25 @@
         {% endif %}
     {% endif %}
 </small>
-<br>
 <hr>
 {{ post.body|safe }}
 
-<br>
+<hr>
+
+<form action="{% url 'like_post' post.pk %}"" method="POST">
+    {% csrf_token %}
+    {% if user.is_authenticated %}
+        {% if liked %}
+            <button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-danger" >Unlike</button>
+        {% else %}
+            <button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-primary" >Like</button>
+        {% endif %} 
+    {% else %}
+    <a  href="{%url 'login'%}">Log In</a> to like
+    {% endif %} 
+    - {{ total_likes }} Likes
+</form>
 <br>
 <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
+
 {% endblock %}
