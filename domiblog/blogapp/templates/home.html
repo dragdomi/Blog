@@ -19,7 +19,7 @@
                 {% endif %}
             {% endif %}
             <br>
-            {{ post.body|slice:":1000"|safe }}
+            {{ post.preview }}
         </li>
     {% endfor %}
 </ul>
