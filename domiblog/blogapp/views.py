@@ -12,7 +12,7 @@ from django.http import HttpResponseRedirect
 class HomeView(ListView):
     model = Post
     template_name = 'home.html'
-    ordering = ['publication_date']
+    ordering = ['-publication_date']
 
     def get_context_data(self, *args, **kwargs):
         categories_menu = Category.objects.all()
