@@ -3,11 +3,21 @@
 {% block content %}
 
 <h1>Log In</h1>
-
+<br>
 <div class="form-group">
     <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
+
+        <div class="form-group">
+            <label for="exampleInputEmail1">Username:</label>
+            <input type="text" class="form-control" name="username">
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password:</label>
+            <input type="password" class="form-control" name="password">
+        </div>
+        <br>
         <button class="btn btn-primary">Log In</button>
     </form>
 </div>

@@ -5,7 +5,6 @@
 
 <h1>{{ post.title }}</h1>
 <small> 
-    Written by: {{ post.author }} <br>
     {{post.publication_date}} |
     <a href="{% url 'category' post.category|slugify%}">{{ post.category }}</a>
     {% if user.is_authenticated %}
@@ -19,11 +18,16 @@
 
 <hr>
 {% if post.header_image %}
-    <img src='{{ post.header_image.url}}' class="img-fluid img-th", alt="Responsive image">
+    <img src='{{ post.header_image.url}}' class="img-fluid img-th rounded", alt="Responsive image">
     <hr>
 {% endif %}
 {{ post.body|safe }}
+<br><br>
+<small>Author: {{ post.author }}</small> 
+
+<br>
 <hr>
+<br>
 
 <form action="{% url 'like_post' post.pk %}"" method="POST">
     {% csrf_token %}
@@ -38,7 +42,29 @@
     {% endif %} 
     - {{ total_likes }} Likes
 </form>
+
 <br>
-<a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
+
+<h2>Comments:</h2>
+
+{% if not post.comments.all %}
+    There are no comments yet.
+    <a href="{% url 'add_comment' post.pk %}">Add Comment</a>
+{% else %}
+    <br>
+    <a href="{% url 'add_comment' post.pk %}">Add Comment</a>
+    <br><br>
+    {% for comment in post.comments.all %}
+        <strong>{{ comment.name }} - {{comment.date_added}}</strong>
+        <br>
+        <i>{{ comment.body }}</i>
+        <br><br>
+    {% endfor %}
+{% endif %}
+
+<br>
+
+
+<!-- <a href="{% url 'home' %}" class="btn btn-secondary">Back</a> -->
 
 {% endblock %}

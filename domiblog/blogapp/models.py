@@ -39,6 +39,20 @@ class Post(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     bio = models.TextField()
+    profile_picture = models.ImageField(
+        null=True, blank=True, upload_to='images/profile/')
+    instagram_url = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return str(self.user)
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(
+        Post, related_name='comments', on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    body = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return '%s - %s' % (self.post.title, self.name)
