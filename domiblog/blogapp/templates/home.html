@@ -3,25 +3,20 @@
 {% block content %}
 
 <h1>Posts</h1>
-
-<ul>
+<br>
+<div class="list-group">
     {% for post in object_list %}
-        <li>
-            <a href="{% url 'post_details' post.pk %}"> 
-            {{ post.title }} </a> - 
-            <a href="{% url 'category' post.category|slugify%}">{{ post.category }}</a> - 
-            {{ post.author }} -
-            {{ post.publication_date }}
-            {% if user.is_authenticated %}
-                {% if user.id == 1 %} -
-                    <a href="{% url 'update_post' post.pk %}">Edit</a> - 
-                    <a href="{% url 'delete_post' post.pk %}">Delete</a>
-                {% endif %}
-            {% endif %}
+       <a href="{% url 'post_details' post.pk %}" class="list-group-item list-group-item-action flex-column align-items-start">
+
+            <div class="d-flex w-100 justify-content-between">
+                 <h4 class="mb-1">{{ post.title }} </h4>
+                <small class="text-muted">{{ post.author }} - {{ post.publication_date }}</small>
+            </div> 
+
+            <p class="mb-1">{{ post.preview }}</p>
+            <small class="text-muted">{{ post.category }}</small>
             <br>
-            {{ post.preview }}
-        </li>
+    </a>
     {% endfor %}
-</ul>
-    
+</div>
 {% endblock %}
